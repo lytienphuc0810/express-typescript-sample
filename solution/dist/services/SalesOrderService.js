@@ -12,13 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Models_1 = require("../models/Models");
 class SalesOrderService {
     constructor() {
-        this.findAll = () => __awaiter(this, void 0, void 0, function* () {
-            return yield Models_1.SalesOrder.findAll({
-                include: [
+        this.findAll = (status) => __awaiter(this, void 0, void 0, function* () {
+            let whereOpt = {};
+            if (status) {
+                whereOpt = {
+                    where: {
+                        status
+                    }
+                };
+            }
+            return (yield Models_1.SalesOrder.findAll(Object.assign(Object.assign({}, whereOpt), { include: [
                     { model: Models_1.Item, as: 'items' },
                     { model: Models_1.Quote, as: 'quotes' }
-                ]
-            });
+                ] })));
         });
     }
 }

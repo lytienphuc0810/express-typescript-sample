@@ -1,12 +1,52 @@
 import express, { Request, Response } from 'express'
+import * as _ from 'lodash'
 import SalesOrderService from '../services/SalesOrderService'
 
 class SalesOrderController {
   public router = express.Router()
   private service : SalesOrderService
-  getSaleOrders = async (req: Request, res: Response) => {
-    const result = await this.service.findAll()
-    res.json({ result })
+  private serializeSaleOrders = (saleOrders : any) => {
+    return _.map(saleOrders, saleOrder => {
+      saleOrder = _.pick(saleOrder, [
+        'id',
+        'status',
+        'customer',
+        'items',
+        'carrierPricePaid',
+        'carrierBooked',
+        'quotes'
+      ])
+
+      saleOrder.items = this.serializeItems(saleOrder.items)
+      saleOrder.quotes = this.serializeQuotes(saleOrder.quotes)
+
+      return saleOrder
+    })
+  }
+
+  private serializeItems (items: any) {
+    return _.map(items, item => {
+      return _.pick(item, [
+        'sku',
+        'quantity',
+        'gramsPerItem',
+        'price'
+      ])
+    })
+  }
+
+  private serializeQuotes (quotes: any) {
+    return _.map(quotes, quote => {
+      return _.pick(quote, [
+        'carrier',
+        'priceCents'
+      ])
+    })
+  }
+
+  private getSaleOrders = async (req: Request, res: Response) => {
+    const saleOrder = await this.service.findAll(req.query.status)
+    res.json({ saleOrder: this.serializeSaleOrders(saleOrder) })
   }
 
   private createSaleOrders = () => {}
