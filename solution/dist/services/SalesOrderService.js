@@ -13,7 +13,12 @@ const Models_1 = require("../models/Models");
 class SalesOrderService {
     constructor() {
         this.findAll = () => __awaiter(this, void 0, void 0, function* () {
-            return yield Models_1.SalesOrder.findAll();
+            return yield Models_1.SalesOrder.findAll({
+                include: [
+                    { model: Models_1.Item, as: 'items' },
+                    { model: Models_1.Quote, as: 'quotes' }
+                ]
+            });
         });
     }
 }

@@ -38,7 +38,7 @@ const Movie = sequelize.define('Movie', { name: sequelize_1.DataTypes.STRING });
 const Actor = sequelize.define('Actor', { name: sequelize_1.DataTypes.STRING });
 Movie.belongsToMany(Actor, { through: 'ActorMovies' });
 Actor.belongsToMany(Movie, { through: 'ActorMovies' });
-SalesOrder.belongsToMany(Item, { through: 'SalesOrderItem', onDelete: 'SET NULL' });
-Item.belongsToMany(SalesOrder, { through: 'SalesOrderItem', onDelete: 'SET NULL' });
+SalesOrder.belongsToMany(Item, { as: 'items', through: 'SalesOrderItem', onDelete: 'SET NULL' });
+Item.belongsToMany(SalesOrder, { as: 'sales-orders', through: 'SalesOrderItem', onDelete: 'SET NULL' });
 SalesOrder.hasMany(Quote, { as: 'quotes', onDelete: 'CASCADE' });
 //# sourceMappingURL=Models.js.map
