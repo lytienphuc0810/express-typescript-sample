@@ -42,7 +42,8 @@ const Models_1 = require("./models/Models");
 const app = (0, express_1.default)();
 const port = 8044;
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    yield Models_1.sequelize.sync();
+    yield Models_1.sequelize.sync({ force: true });
+    Models_1.SalesOrder.destroy({ truncate: true });
 }))();
 app.use(bodyParser.json());
 app.use('/', new SalesOrderController_1.default().router);

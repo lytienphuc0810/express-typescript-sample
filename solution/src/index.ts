@@ -1,13 +1,14 @@
 import express, { Express, Request, Response } from 'express'
 import * as bodyParser from 'body-parser'
 import SalesOrderController from './controllers/SalesOrderController'
-import { sequelize } from './models/Models'
+import { SalesOrder, sequelize } from './models/Models'
 
 const app: Express = express()
 const port = 8044;
 
 (async () => {
-  await sequelize.sync()
+  await sequelize.sync({ force: true })
+  SalesOrder.destroy({ truncate: true })
 })()
 
 app.use(bodyParser.json())
