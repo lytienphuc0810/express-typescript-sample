@@ -1,0 +1,1 @@
+{"version":3,"file":"SalesOrder.js","sourceRoot":"","sources":["../../src/models/SalesOrder.ts"],"names":[],"mappings":";;AAAA,yCAAuD;AAEvD,MAAM,SAAS,GAAG,IAAI,qBAAS,CAAC,iBAAiB,CAAC,CAAA;AAClD,MAAM,UAAU,GAAG,SAAS,CAAC,MAAM,CAAC,YAAY,EAAE;IAChD,EAAE,EAAE,qBAAS,CAAC,OAAO;IACrB,QAAQ,EAAE,qBAAS,CAAC,MAAM;IAC1B,SAAS;CACV,CAAC,CAAA"}
